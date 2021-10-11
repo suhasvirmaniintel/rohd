@@ -118,6 +118,7 @@
 </code></pre>
 <p>There are complete API docs available at <a href="https://intel.github.io/rohd/rohd/rohd-library.html">https://intel.github.io/rohd/rohd/rohd-library.html</a>.</p>
 <p>If you need some help, you can visit our <a href="https://github.com/intel/rohd/discussions">Discussions</a> page.  This is a friendly place where you can ask questions, share ideas, or just discuss openly!  You could also head to <a href="https://stackoverflow.com/">StackOverflow.com</a> (use the tag <code>rohd</code>) to ask questions or look for answers.</p>
+<p>Be sure to note the minimum Dart version required for ROHD specified in pubspec.yaml (at least 2.14.0).  If you're using the version of Dart that came with Flutter, it might be older than that.</p>
 <h2 id="package-managers-for-hardware">Package Managers for Hardware</h2>
 <p>In the Dart ecosystem, you can use a package manager to define all package dependencies.  A package manager allows you to define constrainted subsets of versions of all your <em>direct</em> dependencies, and then the tool will solve for a coherent set of all (direct and indirect) dependencies required to build your project.  There's no need to manually figure out tool versions, build flags and options, environment setup, etc. because it is all guaranteed to work.  Integration of other packages (whether a tool or a hardware IP) become as simple as an <code>import</code> statment.  Compare that to SystemVerilog IP integration!</p>
 <p>Read more about package managers here: <a href="https://en.wikipedia.org/wiki/Package_manager">https://en.wikipedia.org/wiki/Package_manager</a><br>
@@ -598,9 +599,7 @@ b.put(LogicValues([
 <li>The syntax of Scala (and thus Chisel) is probably less familiar-feeling to most hardware engineers, and is arguably more verbose and subjectively uglier than ROHD with Dart.</li>
 <li>Scala and the JVM are arguably less user friendly to debug than Dart code.</li>
 <li>Chisel is focused mostly on the hardware <em>designer</em> rather than the <em>validator</em>.  Many of the design choices for the language are centered around making it easier to parameterize and synthesize logic.  ROHD was created with validators in mind.</li>
-<li>Chisel is built on top of a programming language via extensions, and then compiles/converts into SystemVerilog.  This is different from ROHD which is a framework written in a programming language.  With Chisel, code you write directly represents hardware, while in ROHD code you write in Dart constructs hardware.  The difference is subtle, but it means there's no restrictions on what features of Dart you can use to construct the hardware, while Chisel has some restrictions on software constructs that can generate synthesizable hardware.</li>
 <li>Chisel generates logic that's closer to a netlist than what a similar implementation in SystemVerilog would look like.  This can make it difficult to debug or validate generated code.  ROHD generates structurally similar SystemVerilog that looks close to how you might write it.</li>
-<li>Chisel does not have a built-in simulator like ROHD.  To simulate the code, it must be translated to the netlist-like SystemVerilog and simulated in another simulator like Verilator.</li>
 </ul>
 <p>Read more about Chisel here: <a href="https://www.chisel-lang.org/">https://www.chisel-lang.org/</a></p>
 <h3 id="myhdl-python">MyHDL (Python)</h3>
@@ -619,7 +618,7 @@ b.put(LogicValues([
 <li>HLS uses C++/SystemC, which is arguably a less "friendly" language to use than Dart.</li>
 </ul>
 <p>Read more about one example of an HLS tool (Cadence's Stratus tool) here: <a href="https://www.cadence.com/en_US/home/tools/digital-design-and-signoff/synthesis/stratus-high-level-synthesis.html">https://www.cadence.com/en_US/home/tools/digital-design-and-signoff/synthesis/stratus-high-level-synthesis.html</a></p>
-<p>There are a number of other attempts to make HLS better, including <a href="https://github.com/google/xls">XLS</a> and <a href="https://capra.cs.cornell.edu/fuse/docs/overview/">Dhalia</a>.  There are discussions on ways to reasonably incorporate some of the strengths of HLS approaches into ROHD.</p>
+<p>There are a number of other attempts to make HLS better, including <a href="https://github.com/google/xls">XLS</a> and <a href="https://capra.cs.cornell.edu/dahlia/">Dahlia</a> &amp; <a href="https://capra.cs.cornell.edu/calyx/">Calyx</a>.  There are discussions on ways to reasonably incorporate some of the strengths of HLS approaches into ROHD.</p>
 <h3 id="transaction-level-verilog-tl-verilog">Transaction Level Verilog (TL-Verilog)</h3>
 <p>Transaction Level Verilog (TL-Verilog) is like an extension on top of SystemVerilog that makes pipelining simpler and more concise.</p>
 <ul>
