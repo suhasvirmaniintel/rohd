@@ -73,33 +73,39 @@ all input and output connectivity.  All signals in the interface with specified 
 will be connected to the <a href="../../rohd/Module-class.html">Module</a> via <a href="../../rohd/Module/addInput.html">Module.addInput</a> or <a href="../../rohd/Module/addOutput.html">Module.addOutput</a> based on
 <code>inputTags</code> and <code>outputTags</code>, respectively.  <code>uniquify</code> can be used to uniquifiy port names
 by manipulating the original name of the port.</p>
+<p>If <code>inputTags</code> or <code>outputTags</code> is not specified, then, respectively, no inputs or outputs
+will be added.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">void connectIO(Module module, Interface srcInterface, {Set&lt;TagType&gt;? inputTags, Set&lt;TagType&gt;? outputTags, String Function(String original)? uniquify}) {
-
+  <pre class="language-dart"><code class="language-dart">void connectIO(Module module, Interface srcInterface,
+    {Set&lt;TagType&gt;? inputTags,
+    Set&lt;TagType&gt;? outputTags,
+    String Function(String original)? uniquify}) {
   uniquify = uniquify ?? (String original) =&gt; original;
 
-  getPorts(inputTags).forEach((port) {
-    setPort(
+  if (inputTags != null) {
+    getPorts(inputTags).forEach((port) {
+      setPort(
+          &#47;&#47; ignore: invalid_use_of_protected_member
+          module.addInput(uniquify!(port.name), srcInterface.port(port.name),
+              width: port.width),
+          portName: port.name);
+    });
+  }
+
+  if (outputTags != null) {
+    getPorts(outputTags).forEach((port) {
       &#47;&#47; ignore: invalid_use_of_protected_member
-      module.addInput(uniquify!(port.name), srcInterface.port(port.name), width: port.width),
-      portName: port.name
-    );
-  });
-  getPorts(outputTags).forEach((port) {
-    &#47;&#47; ignore: invalid_use_of_protected_member
-    var output = module.addOutput(uniquify!(port.name), width: port.width);
-    port &lt;= output;
-    srcInterface.port(port.name) &lt;= port;
-    setPort(
-      output,
-      portName: port.name
-    );
-  });
+      var output = module.addOutput(uniquify!(port.name), width: port.width);
+      port &lt;= output;
+      srcInterface.port(port.name) &lt;= port;
+      setPort(output, portName: port.name);
+    });
+  }
 }</code></pre>
 </section>
 
