@@ -52,22 +52,22 @@
     <section class="multi-line-signature">
         
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a></span>
-<span class="name ">bin</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="bin-param-s"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">s</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/2.16.2/dart-core/int-class.html">int</a></span>
+<span class="name ">bin</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="bin-param-s"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">s</span></span></li>
 </ol>)
 
     </section>
     
 <section class="desc markdown">
-  <p>Converts a binary <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a> representation to a binary <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a>.</p>
-<p>Exactly equivalent to <code>int.parse(s, radix:2)</code>, but shorter to type.</p>
+  <p>Converts a binary <a href="https://api.dart.dev/stable/2.16.2/dart-core/String-class.html">String</a> representation to a binary <a href="https://api.dart.dev/stable/2.16.2/dart-core/int-class.html">int</a>.</p>
+<p>Ignores all '_' in the provided binary.</p>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">int bin(String s) =&gt; int.parse(s, radix: 2);</code></pre>
+  <pre class="language-dart"><code class="language-dart">int bin(String s) =&gt; int.parse(s.replaceAll(&#39;_&#39;, &#39;&#39;), radix: 2);</code></pre>
 </section>
 
 
@@ -119,7 +119,6 @@
   <li><a href="../rohd/Logic-class.html">Logic</a></li>
   <li><a href="../rohd/LogicValue-class.html">LogicValue</a></li>
   <li><a href="../rohd/LogicValueChanged-class.html">LogicValueChanged</a></li>
-  <li><a href="../rohd/LogicValues-class.html">LogicValues</a></li>
   <li><a href="../rohd/LShift-class.html">LShift</a></li>
   <li><a href="../rohd/Module-class.html">Module</a></li>
   <li><a href="../rohd/Multiply-class.html">Multiply</a></li>
@@ -147,7 +146,6 @@
 
   <li class="section-title"><a href="../rohd/rohd-library.html#extensions">Extensions</a></li>
   <li><a href="../rohd/LogicSwizzle.html">LogicSwizzle</a></li>
-  <li><a href="../rohd/LogicValuesSwizzle.html">LogicValuesSwizzle</a></li>
   <li><a href="../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></li>
 
   <li class="section-title"><a href="../rohd/rohd-library.html#mixins">Mixins</a></li>
@@ -169,6 +167,7 @@
   <li><a class="deprecated" href="../rohd/Dumper.html">Dumper</a></li>
   <li><a class="deprecated" href="../rohd/ExternalModule.html">ExternalModule</a></li>
   <li><a class="deprecated" href="../rohd/FF.html">FF</a></li>
+  <li><a class="deprecated" href="../rohd/LogicValues.html">LogicValues</a></li>
 
 </ol>
 

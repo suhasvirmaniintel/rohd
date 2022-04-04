@@ -50,7 +50,7 @@
 
     
 <section class="desc markdown">
-  <p>Copyright (C) 2021 Intel Corporation
+  <p>Copyright (C) 2021-2022 Intel Corporation
 SPDX-License-Identifier: BSD-3-Clause</p>
 </section>
 
@@ -280,7 +280,7 @@ SPDX-License-Identifier: BSD-3-Clause</p>
 
 </dt>
 <dd>
-  Represents a single logical 4-value bit (<code>0</code>, <code>1</code>, <code>x</code>, or <code>z</code>). 
+  An immutable 4-value representation of an arbitrary number of bits. <a href="../rohd/LogicValue-class.html">[...]</a>
 </dd>
 
         <dt id="LogicValueChanged">
@@ -289,14 +289,6 @@ SPDX-License-Identifier: BSD-3-Clause</p>
 </dt>
 <dd>
   Represents the event of a <a href="../rohd/Logic-class.html">Logic</a> changing value. 
-</dd>
-
-        <dt id="LogicValues">
-  <span class="name "><a href="../rohd/LogicValues-class.html">LogicValues</a></span> 
-
-</dt>
-<dd>
-  An immutable 4-value representation of an arbitrary number of bits. <a href="../rohd/LogicValues-class.html">[...]</a>
 </dd>
 
         <dt id="LShift">
@@ -532,15 +524,6 @@ be inlined within other SystemVerilog code. <a href="../rohd/InlineSystemVerilog
 </dd>
 
 
-        <dt id="LogicValuesSwizzle">
-    <span class="name "><a href="../rohd/LogicValuesSwizzle.html">LogicValuesSwizzle</a></span> 
-
-</dt>
-<dd>
-    Allows lists of <a href="../rohd/LogicValues-class.html">LogicValues</a>s to be swizzled. 
-</dd>
-
-
         <dt id="LogicValueSwizzle">
     <span class="name "><a href="../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></span> 
 
@@ -560,20 +543,20 @@ be inlined within other SystemVerilog code. <a href="../rohd/InlineSystemVerilog
 
       <dl class="callables">
         <dt id="bin" class="callable">
-  <span class="name"><a href="../rohd/bin.html">bin</a></span><span class="signature">(<wbr><span class="parameter" id="bin-param-s"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a></span> <span class="parameter-name">s</span></span>)
-    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a></span>
+  <span class="name"><a href="../rohd/bin.html">bin</a></span><span class="signature">(<wbr><span class="parameter" id="bin-param-s"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.2/dart-core/String-class.html">String</a></span> <span class="parameter-name">s</span></span>)
+    <span class="returntype parameter">&#8594; <a href="https://api.dart.dev/stable/2.16.2/dart-core/int-class.html">int</a></span>
   </span>
   
 
 </dt>
 <dd>
-  Converts a binary <a href="https://api.dart.dev/stable/2.16.1/dart-core/String-class.html">String</a> representation to a binary <a href="https://api.dart.dev/stable/2.16.1/dart-core/int-class.html">int</a>. <a href="../rohd/bin.html">[...]</a>
+  Converts a binary <a href="https://api.dart.dev/stable/2.16.2/dart-core/String-class.html">String</a> representation to a binary <a href="https://api.dart.dev/stable/2.16.2/dart-core/int-class.html">int</a>. <a href="../rohd/bin.html">[...]</a>
   
 
 </dd>
 
         <dt id="rswizzle" class="callable">
-  <span class="name deprecated"><a class="deprecated" href="../rohd/rswizzle.html">rswizzle</a></span><span class="signature">(<wbr><span class="parameter" id="rswizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span>)
+  <span class="name deprecated"><a class="deprecated" href="../rohd/rswizzle.html">rswizzle</a></span><span class="signature">(<wbr><span class="parameter" id="rswizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span>)
     <span class="returntype parameter">&#8594; <a href="../rohd/Logic-class.html">Logic</a></span>
   </span>
   
@@ -582,12 +565,12 @@ be inlined within other SystemVerilog code. <a href="../rohd/InlineSystemVerilog
 <dd>
   Performs a concatenation operation on the list of signals, where index 0 of <code>signals</code> is
 the <em>least</em> significant bit(s). <a href="../rohd/rswizzle.html">[...]</a>
-  <div class="features">@<a href="https://api.dart.dev/stable/2.16.1/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.rswizzle()` instead&#39;)</div>
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.rswizzle()` instead&#39;)</div>
 
 </dd>
 
         <dt id="swizzle" class="callable">
-  <span class="name deprecated"><a class="deprecated" href="../rohd/swizzle.html">swizzle</a></span><span class="signature">(<wbr><span class="parameter" id="swizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.1/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span>)
+  <span class="name deprecated"><a class="deprecated" href="../rohd/swizzle.html">swizzle</a></span><span class="signature">(<wbr><span class="parameter" id="swizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.16.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span>)
     <span class="returntype parameter">&#8594; <a href="../rohd/Logic-class.html">Logic</a></span>
   </span>
   
@@ -596,7 +579,7 @@ the <em>least</em> significant bit(s). <a href="../rohd/rswizzle.html">[...]</a>
 <dd>
   Performs a concatenation operation on the list of signals, where index 0 of <code>signals</code> is
 the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
-  <div class="features">@<a href="https://api.dart.dev/stable/2.16.1/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.swizzle()` instead&#39;)</div>
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.swizzle()` instead&#39;)</div>
 
 </dd>
 
@@ -640,7 +623,7 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://api.dart.dev/stable/2.16.1/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use WaveDumper instead&#39;)</div>
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use WaveDumper instead&#39;)</div>
 
 </dd>
 
@@ -655,7 +638,7 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://api.dart.dev/stable/2.16.1/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use ExternalSystemVerilogModule instead.&#39;)</div>
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use ExternalSystemVerilogModule instead.&#39;)</div>
 
 </dd>
 
@@ -670,7 +653,22 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
 </dt>
 <dd>
    
-  <div class="features">@<a href="https://api.dart.dev/stable/2.16.1/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use Sequential instead&#39;)</div>
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use Sequential instead&#39;)</div>
+
+</dd>
+
+
+          
+  <dt id="LogicValues" class="">
+  <span class="name deprecated"><a class="deprecated" href="../rohd/LogicValues.html">LogicValues</a></span>
+    = <a href="../rohd/LogicValue-class.html">LogicValue</a>
+  </span>
+  
+
+</dt>
+<dd>
+   
+  <div class="features">@<a href="https://api.dart.dev/stable/2.16.2/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `LogicValue` instead.&#39; &#39;  `LogicValues` and `LogicValue` have been merged into one type.&#39;)</div>
 
 </dd>
 
@@ -735,7 +733,6 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
   <li><a href="../rohd/Logic-class.html">Logic</a></li>
   <li><a href="../rohd/LogicValue-class.html">LogicValue</a></li>
   <li><a href="../rohd/LogicValueChanged-class.html">LogicValueChanged</a></li>
-  <li><a href="../rohd/LogicValues-class.html">LogicValues</a></li>
   <li><a href="../rohd/LShift-class.html">LShift</a></li>
   <li><a href="../rohd/Module-class.html">Module</a></li>
   <li><a href="../rohd/Multiply-class.html">Multiply</a></li>
@@ -763,7 +760,6 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
 
   <li class="section-title"><a href="../rohd/rohd-library.html#extensions">Extensions</a></li>
   <li><a href="../rohd/LogicSwizzle.html">LogicSwizzle</a></li>
-  <li><a href="../rohd/LogicValuesSwizzle.html">LogicValuesSwizzle</a></li>
   <li><a href="../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></li>
 
   <li class="section-title"><a href="../rohd/rohd-library.html#mixins">Mixins</a></li>
@@ -785,6 +781,7 @@ the <em>most</em> significant bit(s). <a href="../rohd/swizzle.html">[...]</a>
   <li><a class="deprecated" href="../rohd/Dumper.html">Dumper</a></li>
   <li><a class="deprecated" href="../rohd/ExternalModule.html">ExternalModule</a></li>
   <li><a class="deprecated" href="../rohd/FF.html">FF</a></li>
+  <li><a class="deprecated" href="../rohd/LogicValues.html">LogicValues</a></li>
 
 </ol>
 
