@@ -76,6 +76,8 @@ abstract class Module {
         UnmodifiableListView(internalSignals),
       ]);
 
+  //TODO: should input() be protected?
+
   /// Accesses the [Logic] associated with this [Module]s input port named [name].
   ///
   /// Logic within this [Module] should consume this signal.
