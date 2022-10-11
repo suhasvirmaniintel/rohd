@@ -113,7 +113,7 @@ class Combinational extends _Always {
     _execute(); // for initial values
 
     _glitchDelayer =
-        GlitchDelayer(_assignedDriverToInputMap.keys.toList(), _execute);
+        GlitchDelayer(_assignedDriverToInputMap.keys.toList(), _execute, []);
 
     // for (final driver in _assignedDriverToInputMap.keys) {
     //   driver.glitch.listen((args) {
@@ -142,7 +142,7 @@ class Combinational extends _Always {
     }
 
     //TODO: way to merge this with original sensitivities?
-    _glitchDelayer.addToListen(sensitivities.toList());
+    _glitchDelayer.addToListen(sensitivities.toList(), []);
 
     // for (final sensitivity in sensitivities) {
     //   sensitivity.glitch.listen((args) {

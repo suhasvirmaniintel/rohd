@@ -39,7 +39,7 @@ class NotGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([a], _execute);
+    GlitchDelayer([a], _execute, [out]);
   }
 
   /// Executes the functional behavior of this gate.
@@ -94,7 +94,7 @@ class _OneInputUnaryGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([a], _execute);
+    GlitchDelayer([a], _execute, [y]);
   }
 
   /// Executes the functional behavior of this gate.
@@ -169,7 +169,7 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([a, b], _execute);
+    GlitchDelayer([a, b], _execute, [y]);
   }
 
   /// Executes the functional behavior of this gate.
@@ -251,7 +251,7 @@ abstract class _TwoInputComparisonGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([a, b], _execute);
+    GlitchDelayer([a, b], _execute, [y]);
   }
 
   /// Executes the functional behavior of this gate.
@@ -325,7 +325,7 @@ class _ShiftGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([a, b], _execute);
+    GlitchDelayer([a, b], _execute, [y]);
   }
 
   /// Executes the functional behavior of this gate.
@@ -559,7 +559,7 @@ class Mux extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    GlitchDelayer([d0, d1, control], _execute);
+    GlitchDelayer([d0, d1, control], _execute, [y]);
   }
 
   /// Executes the functional behavior of the mux.
