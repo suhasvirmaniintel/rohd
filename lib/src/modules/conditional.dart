@@ -306,6 +306,8 @@ class Sequential extends _Always {
 
   bool _sentPreGlitches = false;
 
+  bool _pendingUpdate = false;
+
   /// Performs setup steps for custom functional behavior of this block.
   void _setup() {
     // one time is enough, it's a final map
@@ -325,6 +327,8 @@ class Sequential extends _Always {
           // update the map
           _inputToPreTickInputValuesMap[driverInput] = driverInput.value;
 
+          _pendingUpdate = true;
+
           // if (!_sentPreGlitches) {
           //   for (final outputSignal in _assignedReceiverToOutputMap.values) {
           //     outputSignal.prePut();
@@ -343,6 +347,8 @@ class Sequential extends _Always {
               }
               _driverInputsPendingPostUpdate.clear();
               _pendingPostUpdate = false;
+
+              _pendingUpdate = true;
 
               // if (!_sentPreGlitches) {
               //   for (final outputSignal
@@ -398,7 +404,8 @@ class Sequential extends _Always {
       for (final receiverOutput in _assignedReceiverToOutputMap.values) {
         receiverOutput.put(LogicValue.x);
       }
-    } else if (anyClkPosedge) {
+    } else if (anyClkPosedge && _pendingUpdate) {
+      _pendingUpdate = false;
       //TODO: in here, this only applies for per sequential instead of all...
       for (final outputSignal in _assignedReceiverToOutputMap.values) {
         outputSignal.prePut();
