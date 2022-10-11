@@ -125,6 +125,10 @@ class Logic {
   final SynchronousPropagator<LogicValueChanged> _glitchController =
       SynchronousPropagator<LogicValueChanged>();
 
+  SynchronousEmitter<void> get preGlitch => _preGlitchController.emitter;
+  final SynchronousPropagator<void> _preGlitchController =
+      SynchronousPropagator<void>();
+
   /// Controller for stable events that can be safely consumed at the
   /// end of a [Simulator] tick.
   final StreamController<LogicValueChanged> _changedController =
@@ -223,7 +227,24 @@ class Logic {
     if (width < 0) {
       throw Exception('Logic width must be greater than or equal to 0.');
     }
+
+    //TODO: remove
+    Simulator.preTick.listen((event) {
+      if (numPuts > 0) {
+        if (lastCycleValue != _currentValue) {
+          goodPuts++;
+          wastedPuts += numPuts - 1;
+        } else {
+          wastedPuts += numPuts;
+        }
+      }
+      numPuts = 0;
+      lastCycleValue = _currentValue;
+    });
   }
+  LogicValue? lastCycleValue;
+  static int wastedPuts = 0;
+  static int goodPuts = 0;
 
   @override
   String toString() => 'Logic($width): $name';
@@ -269,6 +290,9 @@ class Logic {
     }
     other.glitch.listen((args) {
       put(other.value);
+    });
+    other.preGlitch.listen((args) {
+      prePut();
     });
   }
 
@@ -374,6 +398,9 @@ class Logic {
   /// Keeps track of whether there is an active put, to detect reentrance.
   bool _isPutting = false;
 
+  //TODO: remove
+  int numPuts = 0;
+
   /// Puts a value [val] onto this signal, which may or may not be picked up
   /// for [changed] in this [Simulator] tick.
   ///
@@ -385,6 +412,7 @@ class Logic {
   /// If [fill] is set, all bits of the signal gets set to [val], similar
   /// to `'` in SystemVerilog.
   void put(dynamic val, {bool fill = false}) {
+    numPuts++; //TODO: remove
     LogicValue newValue;
     if (val is int) {
       if (fill) {
@@ -441,10 +469,31 @@ class Logic {
     _currentValue = newValue;
 
     // sends out a glitch if the value deposited has changed
-    if (_currentValue != prevValue) {
+    if (_prePutSignalled || _currentValue != prevValue) {
+      _prePutSignalled = false;
       _isPutting = true;
       _glitchController.add(LogicValueChanged(_currentValue, prevValue));
       _isPutting = false;
+    }
+  }
+
+  bool _isPrePutting = false;
+  bool _prePutSignalled = false;
+
+  /// Notifies downstream listeners that a put is coming from this `Logic`
+  /// and that it can optimize performance by delaying dependent execution
+  /// until this signal has transitioned.
+  void prePut() {
+    if (_isPrePutting) {
+      // to prevent deadlock, can't allow for any prePut loops
+      put(_currentValue);
+    } else {
+      if (!_prePutSignalled) {
+        _prePutSignalled = true;
+        _isPrePutting = true;
+        _preGlitchController.add(null);
+        _isPrePutting = false;
+      }
     }
   }
 

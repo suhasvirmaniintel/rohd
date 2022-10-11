@@ -8,6 +8,25 @@
 /// Author: Max Korbel <max.korbel@intel.com>
 ///
 
+//TODO: a way to only propagate execution of downstream logic
+// once all values from the output of a sequential have completed
+// maybe a special phase of the simulation just for sequential outputs
+// to all come to an agreement?
+// how about a two-phase glitch, so you can either listen to glitch
+// or you can listen to first and second phase, then only eval on second?
+// should try to *measure* how many unnecessary reg-litches there are
+// there should be a prePut, to notify downstream listeners that a put is
+// coming and not to execute until it has received it; then its optional
+// to implement it!  need to make a utility that can set that up for you.
+// need a separate putComplete notification, in case put does nothing.
+// the preputs need to propagate first deeply to get any value
+// combinational blocks need to propagate anyways instantly for functionality
+// i guess only need it for combinational block signals that LOOP?
+// need to immediately cancel if a loop is detected to prevent deadlock
+// can we just only put this on sequential and still get a benefit?
+// this only matters on multi-output things
+// combinational *can* use this I think, as long as it doesnt *generate* it
+
 /// A controller for a [SynchronousEmitter] that allows for
 /// adding of events of type [T] to be emitted.
 class SynchronousPropagator<T> {

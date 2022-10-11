@@ -93,7 +93,7 @@ class Pipeline {
   /// in [resetValues] should be a type acceptable to [Logic]'s `put` function.
   ///
   /// Each stage can be stalled independently using [stalls], where every index
-  ///  of [stalls] corresponds to the index of the stage to be stalled.  When
+  /// of [stalls] corresponds to the index of the stage to be stalled.  When
   /// a stage's stall is asserted, the output of that stage will not change.
   Pipeline(this.clk,
       {List<List<Conditional> Function(PipelineStageInfo p)> stages = const [],

@@ -12,6 +12,7 @@ import 'dart:async';
 
 import 'package:meta/meta.dart';
 import 'package:rohd/rohd.dart';
+import 'package:rohd/src/utilities/glitch_delayer.dart';
 import 'package:rohd/src/utilities/sanitizer.dart';
 import 'package:rohd/src/utilities/uniquifier.dart';
 
@@ -103,16 +104,22 @@ abstract class _Always extends Module with CustomSystemVerilog {
 /// dependencies in order for sensitivity detection to work properly
 /// in all cases.
 class Combinational extends _Always {
+  late final GlitchDelayer _glitchDelayer;
+
   /// Constructs a new [Combinational] which executes [conditionals] in order
   /// procedurally.
   Combinational(List<Conditional> conditionals, {String name = 'combinational'})
       : super(conditionals, name: name) {
     _execute(); // for initial values
-    for (final driver in _assignedDriverToInputMap.keys) {
-      driver.glitch.listen((args) {
-        _execute();
-      });
-    }
+
+    _glitchDelayer =
+        GlitchDelayer(_assignedDriverToInputMap.keys.toList(), _execute);
+
+    // for (final driver in _assignedDriverToInputMap.keys) {
+    //   driver.glitch.listen((args) {
+    //     _execute();
+    //   });
+    // }
   }
 
   @override
@@ -134,11 +141,14 @@ class Combinational extends _Always {
       }
     }
 
-    for (final sensitivity in sensitivities) {
-      sensitivity.glitch.listen((args) {
-        _execute();
-      });
-    }
+    //TODO: way to merge this with original sensitivities?
+    _glitchDelayer.addToListen(sensitivities.toList());
+
+    // for (final sensitivity in sensitivities) {
+    //   sensitivity.glitch.listen((args) {
+    //     _execute();
+    //   });
+    // }
   }
 
   /// Recursively collects a list of all [Logic]s that this should be sensitive
@@ -294,6 +304,8 @@ class Sequential extends _Always {
   /// Keeps track of whether values need to be updated post-tick.
   bool _pendingPostUpdate = false;
 
+  bool _sentPreGlitches = false;
+
   /// Performs setup steps for custom functional behavior of this block.
   void _setup() {
     // one time is enough, it's a final map
@@ -312,6 +324,13 @@ class Sequential extends _Always {
           // if the change happens not when the clocks are stable, immediately
           // update the map
           _inputToPreTickInputValuesMap[driverInput] = driverInput.value;
+
+          // if (!_sentPreGlitches) {
+          //   for (final outputSignal in _assignedReceiverToOutputMap.values) {
+          //     outputSignal.prePut();
+          //   }
+          //   _sentPreGlitches = true;
+          // }
         } else {
           // if this is during stable clocks, it's probably another flop
           // driving it, so hold onto it for later
@@ -324,6 +343,14 @@ class Sequential extends _Always {
               }
               _driverInputsPendingPostUpdate.clear();
               _pendingPostUpdate = false;
+
+              // if (!_sentPreGlitches) {
+              //   for (final outputSignal
+              //       in _assignedReceiverToOutputMap.values) {
+              //     outputSignal.prePut();
+              //   }
+              //   _sentPreGlitches = true;
+              // }
             }));
           }
           _pendingPostUpdate = true;
@@ -350,6 +377,8 @@ class Sequential extends _Always {
   }
 
   void _execute() {
+    _sentPreGlitches = false;
+
     var anyClkInvalid = false;
     var anyClkPosedge = false;
     for (var i = 0; i < _clks.length; i++) {
@@ -370,6 +399,11 @@ class Sequential extends _Always {
         receiverOutput.put(LogicValue.x);
       }
     } else if (anyClkPosedge) {
+      //TODO: in here, this only applies for per sequential instead of all...
+      for (final outputSignal in _assignedReceiverToOutputMap.values) {
+        outputSignal.prePut();
+      }
+
       final allDrivenSignals = <Logic>[];
       for (final element in conditionals) {
         allDrivenSignals.addAll(element.execute());
@@ -385,6 +419,10 @@ class Sequential extends _Always {
         }
         throw Exception('Sequential drove the same signal(s) multiple times:'
             ' $redrivenSignals.');
+      }
+
+      for (final outputSignal in _assignedReceiverToOutputMap.values) {
+        outputSignal.put(outputSignal.value);
       }
     }
 

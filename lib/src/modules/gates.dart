@@ -9,6 +9,7 @@
 ///
 
 import 'package:rohd/rohd.dart';
+import 'package:rohd/src/utilities/glitch_delayer.dart';
 
 /// A gate [Module] that performs bit-wise inversion.
 class NotGate extends Module with InlineSystemVerilog {
@@ -38,9 +39,7 @@ class NotGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    a.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([a], _execute);
   }
 
   /// Executes the functional behavior of this gate.
@@ -95,9 +94,7 @@ class _OneInputUnaryGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    a.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([a], _execute);
   }
 
   /// Executes the functional behavior of this gate.
@@ -172,12 +169,7 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    a.glitch.listen((args) {
-      _execute();
-    });
-    b.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([a, b], _execute);
   }
 
   /// Executes the functional behavior of this gate.
@@ -259,12 +251,7 @@ abstract class _TwoInputComparisonGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    a.glitch.listen((args) {
-      _execute();
-    });
-    b.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([a, b], _execute);
   }
 
   /// Executes the functional behavior of this gate.
@@ -338,12 +325,7 @@ class _ShiftGate extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-    a.glitch.listen((args) {
-      _execute();
-    });
-    b.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([a, b], _execute);
   }
 
   /// Executes the functional behavior of this gate.
@@ -577,16 +559,7 @@ class Mux extends Module with InlineSystemVerilog {
   /// Performs setup steps for custom functional behavior.
   void _setup() {
     _execute(); // for initial values
-
-    d0.glitch.listen((args) {
-      _execute();
-    });
-    d1.glitch.listen((args) {
-      _execute();
-    });
-    control.glitch.listen((args) {
-      _execute();
-    });
+    GlitchDelayer([d0, d1, control], _execute);
   }
 
   /// Executes the functional behavior of the mux.
