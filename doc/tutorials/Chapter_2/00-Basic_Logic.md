@@ -97,11 +97,12 @@ Below, let us look at how to create a `Logic` signal. In the example below, we c
 // TODO(user): (Required) Paste your Logic initialization here.
 // ------------------------------------------------------------
 
+//                                        SystemVerilog Equivalent
 // 1-bit unnamed signal. 
-Logic unamedSignal = Logic();
+Logic unamedSignal = Logic();             // logic _unnamedSignal;
 
 // 8-bit bus named 'b'.
-Logic bus = Logic(name: 'b', width: 8);
+Logic bus = Logic(name: 'b', width: 8);   // logic [7:0] b;
 
 // You can use .toString() method to check for your signals details.
 // Dart will assume you are using.toString() as default if not specify.
