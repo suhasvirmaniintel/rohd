@@ -39,8 +39,11 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
@@ -50,7 +53,6 @@
   <div id="dartdoc-main-content" class="main-content">
       <div>
 <h1><span class="kind-function">rswizzle</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
@@ -58,12 +60,12 @@
         
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/2.19.6/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.rswizzle()` instead&#39;)</li>
+        <li>@<a href="https://api.dart.dev/stable/3.0.4/dart-core/Deprecated-class.html">Deprecated</a>(&#39;Use `List&lt;Logic&gt;.rswizzle()` instead&#39;)</li>
     </ol>
   </div>
 
 <span class="returntype"><a href="../rohd/Logic-class.html">Logic</a></span>
-<span class="name deprecated">rswizzle</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="rswizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.6/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span></li>
+<span class="name deprecated">rswizzle</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="rswizzle-param-signals"><span class="type-annotation"><a href="https://api.dart.dev/stable/3.0.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../rohd/Logic-class.html">Logic</a></span>&gt;</span></span> <span class="parameter-name">signals</span></span></li>
 </ol>)
 
         
@@ -74,7 +76,7 @@
   <p>Performs a concatenation operation on the list of signals, where index 0 of
 <code>signals</code> is the <em>least</em> significant bit(s).</p>
 <p>This is the one you should probably use if you're trying to concatenate a
-generated <a href="https://api.dart.dev/stable/2.19.6/dart-core/List-class.html">List</a> of signals. If you write <code>rswizzle([a, b, c])</code> you would
+generated <a href="https://api.dart.dev/stable/3.0.4/dart-core/List-class.html">List</a> of signals. If you write <code>rswizzle([a, b, c])</code> you would
 get a single output <a href="../rohd/Logic-class.html">Logic</a> where the bits in <code>a</code> are the least significant
 (lowest) bits.</p>
 <p>If you want the opposite, check out <a class="deprecated" href="../rohd/swizzle.html">swizzle()</a>.</p>
@@ -119,6 +121,7 @@ Logic rswizzle(List&lt;Logic&gt; signals) =&gt; signals.rswizzle();</code></pre>
         <li><a href="../rohd/Combinational-class.html">Combinational</a></li>
         <li><a href="../rohd/Conditional-class.html">Conditional</a></li>
         <li><a href="../rohd/ConditionalAssign-class.html">ConditionalAssign</a></li>
+        <li><a href="../rohd/ConditionalGroup-class.html">ConditionalGroup</a></li>
         <li><a href="../rohd/Const-class.html">Const</a></li>
         <li><a href="../rohd/Divide-class.html">Divide</a></li>
         <li><a href="../rohd/Else-class.html">Else</a></li>
@@ -135,6 +138,8 @@ Logic rswizzle(List&lt;Logic&gt; signals) =&gt; signals.rswizzle();</code></pre>
         <li><a href="../rohd/LessThan-class.html">LessThan</a></li>
         <li><a href="../rohd/LessThanOrEqual-class.html">LessThanOrEqual</a></li>
         <li><a href="../rohd/Logic-class.html">Logic</a></li>
+        <li><a href="../rohd/LogicArray-class.html">LogicArray</a></li>
+        <li><a href="../rohd/LogicStructure-class.html">LogicStructure</a></li>
         <li><a href="../rohd/LogicValue-class.html">LogicValue</a></li>
         <li><a href="../rohd/LogicValueChanged-class.html">LogicValueChanged</a></li>
         <li><a href="../rohd/LShift-class.html">LShift</a></li>
@@ -146,9 +151,11 @@ Logic rswizzle(List&lt;Logic&gt; signals) =&gt; signals.rswizzle();</code></pre>
         <li><a href="../rohd/NotGate-class.html">NotGate</a></li>
         <li><a href="../rohd/Or2Gate-class.html">Or2Gate</a></li>
         <li><a href="../rohd/OrUnary-class.html">OrUnary</a></li>
+        <li><a href="../rohd/PairInterface-class.html">PairInterface</a></li>
         <li><a href="../rohd/Pipeline-class.html">Pipeline</a></li>
         <li><a href="../rohd/PipelineStageInfo-class.html">PipelineStageInfo</a></li>
         <li><a href="../rohd/Port-class.html">Port</a></li>
+        <li><a href="../rohd/Power-class.html">Power</a></li>
         <li><a href="../rohd/ReadyValidPipeline-class.html">ReadyValidPipeline</a></li>
         <li><a href="../rohd/ReplicationOp-class.html">ReplicationOp</a></li>
         <li><a href="../rohd/RShift-class.html">RShift</a></li>
@@ -171,6 +178,7 @@ Logic rswizzle(List&lt;Logic&gt; signals) =&gt; signals.rswizzle();</code></pre>
         <li><a href="../rohd/BigLogicValueBigIntUtilities.html">BigLogicValueBigIntUtilities</a></li>
         <li><a href="../rohd/LogicSwizzle.html">LogicSwizzle</a></li>
         <li><a href="../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></li>
+        <li><a href="../rohd/RandLogicValue.html">RandLogicValue</a></li>
 
       <li class="section-title"><a href="../rohd/rohd-library.html#mixins">Mixins</a></li>
         <li><a href="../rohd/CustomSystemVerilog-mixin.html">CustomSystemVerilog</a></li>
@@ -180,12 +188,15 @@ Logic rswizzle(List&lt;Logic&gt; signals) =&gt; signals.rswizzle();</code></pre>
 
       <li class="section-title"><a href="../rohd/rohd-library.html#functions">Functions</a></li>
         <li><a href="../rohd/bin.html">bin</a></li>
+        <li><a href="../rohd/flop.html">flop</a></li>
         <li><a href="../rohd/mux.html">mux</a></li>
         <li><a class="deprecated" href="../rohd/rswizzle.html">rswizzle</a></li>
         <li><a class="deprecated" href="../rohd/swizzle.html">swizzle</a></li>
 
       <li class="section-title"><a href="../rohd/rohd-library.html#enums">Enums</a></li>
         <li><a href="../rohd/ConditionalType.html">ConditionalType</a></li>
+        <li><a href="../rohd/PairDirection.html">PairDirection</a></li>
+        <li><a href="../rohd/PairRole.html">PairRole</a></li>
         <li><a href="../rohd/SimulatorPhase.html">SimulatorPhase</a></li>
 
       <li class="section-title"><a href="../rohd/rohd-library.html#typedefs">Typedefs</a></li>
