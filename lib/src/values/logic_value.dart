@@ -1040,7 +1040,11 @@ abstract class LogicValue implements Comparable<LogicValue> {
 
     dynamic a;
     dynamic b;
-    if (this is _BigLogicValue || other is BigInt || other is _BigLogicValue) {
+    if (this is _BigLogicValue ||
+        other is BigInt ||
+        other is _BigLogicValue ||
+        width > _INT_BITS ||
+        (other is LogicValue && other.width > _INT_BITS)) {
       a = toBigInt();
       b = other is BigInt
           ? other
