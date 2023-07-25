@@ -969,14 +969,19 @@ class Case extends Conditional {
       }
     }
 
-    if (!expression.value.isValid) {
-      // if expression has X or Z, then propogate X's!
+    void xItOut() {
       for (final receiver in receivers) {
         receiverOutput(receiver).put(LogicValue.x);
         if (!drivenSignals.contains(receiver) || receiver.value.isValid) {
           drivenSignals.add(receiver);
         }
       }
+      return;
+    }
+
+    if (!expression.value.isValid) {
+      // if expression has X or Z, then propogate X's!
+      xItOut();
       return;
     }
 
@@ -989,9 +994,11 @@ class Case extends Conditional {
           conditional.execute(drivenSignals, guard);
         }
         if (foundMatch != null && conditionalType == ConditionalType.unique) {
-          throw Exception('Unique case statement had multiple matching cases.'
-              ' Original: "$foundMatch".'
-              ' Duplicate: "$item".');
+          // throw Exception('Unique case statement had multiple matching cases.'
+          //     ' Original: "$foundMatch".'
+          //     ' Duplicate: "$item".');
+          xItOut();
+          return;
         }
 
         foundMatch = item;
@@ -1010,8 +1017,10 @@ class Case extends Conditional {
     } else if (foundMatch == null &&
         (conditionalType == ConditionalType.unique ||
             conditionalType == ConditionalType.priority)) {
-      throw Exception('$conditionalType case statement had no matching case,'
-          ' and type was $conditionalType.');
+      // throw Exception('$conditionalType case statement had no matching case,'
+      //     ' and type was $conditionalType.');
+      xItOut();
+      return;
     }
   }
 
