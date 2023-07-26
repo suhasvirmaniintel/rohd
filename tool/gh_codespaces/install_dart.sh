@@ -22,9 +22,9 @@ sudo gpg --output ${output_pubkey_file} --dearmor ${input_pubkey_file}
 # Add Dart repository.
 
 declare -r dart_repository_url='https://storage.googleapis.com/download.dartlang.org/linux/debian'
-declare -r dart_repository_file='/etc/apt/sources.list.d/dart.list'
+declare -r dart_repository_file='/etc/apt/sources.list.d/dart_stable.list'
 
-echo "deb [signed-by=${output_pubkey_file}] ${dart_repository_url} stable main" | sudo tee ${dart_repository_file}
+echo "deb [signed-by=${output_pubkey_file} arch=amd64] ${dart_repository_url} stable main" | sudo tee ${dart_repository_file}
 
 # Install Dart.
 
