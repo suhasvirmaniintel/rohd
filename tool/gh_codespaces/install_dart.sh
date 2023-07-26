@@ -17,6 +17,9 @@ set -euo pipefail
 declare -r input_pubkey_file='tool/gh_codespaces/pubkeys/dart.pub'
 declare -r output_pubkey_file='/usr/share/keyrings/dart.gpg'
 
+sudo mkdir -p /usr/share/keyrings
+sudo mkdir -p /etc/apt/sources.list.d
+
 sudo gpg --output ${output_pubkey_file} --dearmor ${input_pubkey_file}
 
 # Add Dart repository.
