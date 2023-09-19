@@ -66,6 +66,7 @@
   <p>An immutable 4-value representation of an arbitrary number of bits.</p>
 <p>Each bit of <a href="../rohd/LogicValue-class.html">LogicValue</a> can be represented as a <a href="../rohd/LogicValue-class.html">LogicValue</a>
 of <code>0</code>, <code>1</code>, <code>x</code> (contention), or <code>z</code> (floating).</p>
+<p><a href="../rohd/LogicValue-class.html">LogicValue</a> is unsigned.</p>
 </section>
 
 
@@ -894,6 +895,20 @@ number of bits.
 <dd>
   Converts <code>bool</code> <code>value</code> to a valid <a href="../rohd/LogicValue-class.html">LogicValue</a> with 1 bits either
 one or zero.
+  
+
+</dd>
+
+        <dt id="ofInferWidth" class="callable">
+  <span class="name"><a href="../rohd/LogicValue/ofInferWidth.html">ofInferWidth</a></span><span class="signature">(<wbr><span class="parameter" id="ofInferWidth-param-val"><span class="type-annotation">dynamic</span> <span class="parameter-name">val</span></span>)
+    <span class="returntype parameter">&#8594; <a href="../rohd/LogicValue-class.html">LogicValue</a></span>
+  </span>
+  
+
+</dt>
+<dd>
+  Creates a <a href="../rohd/LogicValue-class.html">LogicValue</a> of <code>val</code> using <a href="../rohd/LogicValue/of.html">of</a>, but attempts to infer the
+width that would fit <code>val</code> automatically.
   
 
 </dd>
