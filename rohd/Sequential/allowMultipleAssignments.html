@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the rswizzle method from the LogicValueSwizzle extension, for the Dart programming language.">
-  <title>rswizzle method - LogicValueSwizzle extension - rohd library - Dart API</title>
+  <meta name="description" content="API docs for the allowMultipleAssignments property from the Sequential class, for the Dart programming language.">
+  <title>allowMultipleAssignments property - Sequential class - rohd library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd</a></li>
-    <li><a href="../../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></li>
-    <li class="self-crumb">rswizzle method</li>
+    <li><a href="../../rohd/Sequential-class.html">Sequential</a></li>
+    <li class="self-crumb">allowMultipleAssignments property</li>
   </ol>
-  <div class="self-name">rswizzle</div>
+  <div class="self-name">allowMultipleAssignments</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -54,37 +54,30 @@
   <div
       id="dartdoc-main-content"
       class="main-content"
-      data-above-sidebar="rohd&#47;LogicValueSwizzle-extension-sidebar.html"
+      data-above-sidebar="rohd&#47;Sequential-class-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-method">rswizzle</span> method 
+<h1><span class="kind-property">allowMultipleAssignments</span> property 
 </h1></div>
 
-    <section class="multi-line-signature">
-      
+        <section class="multi-line-signature">
+          
+          <a href="https://api.dart.dev/stable/3.1.3/dart-core/bool-class.html">bool</a>
+          <span class="name ">allowMultipleAssignments</span>
+          <div class="features"><span class="feature">final</span></div>
 
-<span class="returntype"><a href="../../rohd/LogicValue-class.html">LogicValue</a></span>
-<span class="name ">rswizzle</span>(<wbr>)
-
-      
-
-    </section>
-    
+        </section>
+        
 <section class="desc markdown">
-  <p>Performs a concatenation operation on the list of signals, where index 0
-of this list is the <em>least</em> significant bit.</p>
-<p>This is the one you should probably use if you're trying to concatenate a
-generated <a href="https://api.dart.dev/stable/3.1.3/dart-core/List-class.html">List</a> of signals. If you call <a href="../../rohd/LogicValueSwizzle/rswizzle.html">rswizzle</a> on <code>[a, b, c]</code> you
-would get a single output <a href="../../rohd/LogicValue-class.html">LogicValue</a> where the bits in <code>a</code> are the
-least significant (lowest) bits.</p>
-<p>If you want the opposite, check out <a href="../../rohd/LogicValueSwizzle/swizzle.html">swizzle</a>.</p>
+  <p>When <code>false</code>, an <a href="../../rohd/SignalRedrivenException-class.html">SignalRedrivenException</a> will be thrown during
+simulation if the same signal is driven multiple times within this
+<a href="../../rohd/Sequential-class.html">Sequential</a>.</p>
 </section>
 
-
-    
+        
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">LogicValue rswizzle() =&gt; length == 1 ? first : LogicValue.ofIterable(this);</code></pre>
+  <pre class="language-dart"><code class="language-dart">final bool allowMultipleAssignments;</code></pre>
 </section>
 
 
@@ -101,12 +94,12 @@ least significant (lowest) bits.</p>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd</a></li>
-    <li><a href="../../rohd/LogicValueSwizzle.html">LogicValueSwizzle</a></li>
-    <li class="self-crumb">rswizzle method</li>
+    <li><a href="../../rohd/Sequential-class.html">Sequential</a></li>
+    <li class="self-crumb">allowMultipleAssignments property</li>
 </ol>
 
 
-    <h5>LogicValueSwizzle extension</h5>
+    <h5>Sequential class</h5>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
