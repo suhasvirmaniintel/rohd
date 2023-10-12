@@ -80,7 +80,7 @@ void main() {
     final sv = gtm.generateSynth();
     final lines = sv.split('\n');
 
-    // print(sv);
+    print(sv);
 
     //TODO: temp
 

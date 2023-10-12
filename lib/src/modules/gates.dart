@@ -230,7 +230,7 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
     final in1 = inputs[_in1Name]!;
     var expr = '$in0 $_opStr $in1';
     if (_outputSvWidthExpansion) {
-      expr = "$width'($expr)";
+      expr = "$width'(($expr) & ${LogicValue.filled(width, LogicValue.one)})";
     }
     return expr;
   }
@@ -446,7 +446,7 @@ class _ShiftGate extends Module with InlineSystemVerilog {
     var expr = signed ? '{$shiftStr}' : shiftStr;
 
     if (_outputSvWidthExpansion) {
-      expr = "$width'($expr)";
+      expr = "$width'(($expr) & ${LogicValue.filled(width, LogicValue.one)})";
     }
 
     return expr;
