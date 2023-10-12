@@ -141,10 +141,12 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
   late final Logic _in1 = input(_in1Name);
 
   /// The output of this gate.
-  late final Logic out = _outputSvWidthExpansion
-      // this is sub-optimal, but it's tricky to make special SV for it
-      ? BusSubset(output(_outName), 0, width - 1).subset
-      : output(_outName);
+  late final Logic out = output(_outName);
+  //TODO: temp
+  // late final Logic out = _outputSvWidthExpansion
+  //     // this is sub-optimal, but it's tricky to make special SV for it
+  //     ? BusSubset(output(_outName), 0, width - 1).subset
+  //     : output(_outName);
 
   /// The output of this gate.
   ///
@@ -189,7 +191,9 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
 
     addInput(_in0Name, in0, width: width);
     addInput(_in1Name, in1Logic, width: width);
-    addOutput(_outName, width: width + (_outputSvWidthExpansion ? 1 : 0));
+    addOutput(_outName, width: width);
+    //TODO: temp
+    // addOutput(_outName, width: width + (_outputSvWidthExpansion ? 1 : 0));
 
     _setup();
   }
@@ -224,7 +228,11 @@ abstract class _TwoInputBitwiseGate extends Module with InlineSystemVerilog {
     }
     final in0 = inputs[_in0Name]!;
     final in1 = inputs[_in1Name]!;
-    return '$in0 $_opStr $in1';
+    var expr = '$in0 $_opStr $in1';
+    if (_outputSvWidthExpansion) {
+      expr = "$width'($expr)";
+    }
+    return expr;
   }
 }
 
@@ -372,19 +380,26 @@ class _ShiftGate extends Module with InlineSystemVerilog {
         super(name: name) {
     final shiftAmountLogic = shiftAmount is Logic
         ? shiftAmount
-        : Const(_outputSvWidthExpansion
-            ? LogicValue.of(shiftAmount, width: width)
-            : LogicValue.ofInferWidth(shiftAmount));
+        : Const(LogicValue.ofInferWidth(shiftAmount));
+
+    //TODO tmp
+    // : Const(_outputSvWidthExpansion
+    //     ? LogicValue.of(shiftAmount, width: width)
+    //     : LogicValue.ofInferWidth(shiftAmount));
 
     _inName = Module.unpreferredName('in_${in_.name}');
 
-    _shiftAmountName = 'shiftAmount_${shiftAmountLogic.name}';
-    if (!_outputSvWidthExpansion) {
-      // if we have width expansion, then we want to avoid any constants as
-      // the shift amount since that gets complicated...
-      // so as a proxy for now, just always shove a shiftAmount here
-      _shiftAmountName = Module.unpreferredName(_shiftAmountName);
-    }
+    _shiftAmountName =
+        Module.unpreferredName('shiftAmount_${shiftAmountLogic.name}');
+
+    //TODO: temp
+    // _shiftAmountName = 'shiftAmount_${shiftAmountLogic.name}';
+    // if (!_outputSvWidthExpansion) {
+    //   // if we have width expansion, then we want to avoid any constants as
+    //   // the shift amount since that gets complicated...
+    //   // so as a proxy for now, just always shove a shiftAmount here
+    //   _shiftAmountName = Module.unpreferredName(_shiftAmountName);
+    // }
 
     _outName =
         Module.unpreferredName('${in_.name}_${name}_${shiftAmountLogic.name}');
@@ -428,7 +443,13 @@ class _ShiftGate extends Module with InlineSystemVerilog {
     final shiftStr = '$aStr $_opStr $shiftAmount';
 
     // In case of signed, wrap in {} to make it self-determined.
-    return signed ? '{$shiftStr}' : shiftStr;
+    var expr = signed ? '{$shiftStr}' : shiftStr;
+
+    if (_outputSvWidthExpansion) {
+      expr = "$width'($expr)";
+    }
+
+    return expr;
   }
 }
 
