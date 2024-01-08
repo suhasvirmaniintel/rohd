@@ -71,6 +71,7 @@ class TopWithExpressions extends Module {
     b = addInput('b', b, width: 5);
 
     addOutput('o') <= SubForExpressions(a | b[2]).o;
+    addOutput('o_custom') <= CustomSvSubForExpressions(a.neq(b[2])).o;
   }
 }
 
@@ -80,6 +81,20 @@ class SubForExpressions extends Module {
     a = addInput('a', a);
     addOutput('o') <= a;
   }
+}
+
+class CustomSvSubForExpressions extends Module with CustomSystemVerilog {
+  Logic get o => output('sv_o');
+  CustomSvSubForExpressions(Logic a) {
+    a = addInput('sv_a', a);
+    addOutput('sv_o') <= a;
+  }
+
+  @override
+  String instantiationVerilog(String instanceType, String instanceName,
+          Map<String, String> inputs, Map<String, String> outputs) =>
+      'assign ${outputs['sv_o']}   <=   ${inputs['sv_a']};'
+      ' // custom sv sub';
 }
 
 class ModuleWithFloatingSignals extends Module {
@@ -161,6 +176,8 @@ void main() {
     final sv = mod.generateSynth();
 
     expect(sv, contains('.a((a | (b[2])))'));
+    expect(
+        sv, contains('assign o_custom   <=   (a != (b[2])); // custom sv sub'));
   });
 
   test('no floating assignments', () async {
