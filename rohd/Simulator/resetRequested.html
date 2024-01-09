@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the generateDiagram method from the FiniteStateMachine class, for the Dart programming language.">
-  <title>generateDiagram method - FiniteStateMachine class - rohd library - Dart API</title>
+  <meta name="description" content="API docs for the resetRequested property from the Simulator class, for the Dart programming language.">
+  <title>resetRequested property - Simulator class - rohd library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd</a></li>
-    <li><a href="../../rohd/FiniteStateMachine-class.html">FiniteStateMachine<span class="signature">&lt;<wbr><span class="type-parameter">StateIdentifier</span>&gt;</span></a></li>
-    <li class="self-crumb">generateDiagram method</li>
+    <li><a href="../../rohd/Simulator-class.html">Simulator</a></li>
+    <li class="self-crumb">resetRequested property</li>
   </ol>
-  <div class="self-name">generateDiagram</div>
+  <div class="self-name">resetRequested</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -54,57 +54,36 @@
   <div
       id="dartdoc-main-content"
       class="main-content"
-      data-above-sidebar="rohd&#47;FiniteStateMachine-class-sidebar.html"
+      data-above-sidebar="rohd&#47;Simulator-class-sidebar.html"
       data-below-sidebar="">
       <div>
-<h1><span class="kind-method">generateDiagram</span> method 
+<h1><span class="kind-property">resetRequested</span> property 
 </h1></div>
 
-    <section class="multi-line-signature">
-      
 
-<span class="returntype">void</span>
-<span class="name ">generateDiagram</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="generateDiagram-param-outputPath">{<span class="type-annotation"><a href="https://api.dart.dev/stable/3.2.4/dart-core/String-class.html">String</a></span> <span class="parameter-name">outputPath</span> = <span class="default-value">&#39;diagram_fsm.md&#39;</span>}</span></li>
-</ol>)
+        
+<section id="getter">
 
-      
+<section class="multi-line-signature">
+  
+  <span class="returntype"><a href="https://api.dart.dev/stable/3.2.4/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+  <span class="name ">resetRequested</span>
+  
 
-    </section>
-    
-<section class="desc markdown">
-  <p>Generate a FSM state diagram <code>_MermaidStateDiagram</code>.
-Check on <a href="https://mermaid.js.org/intro/">https://mermaid.js.org/intro/</a> to view the diagram generated.
-If you are using vscode, you can download the mermaid extension.</p>
-<p>Output to mermaid diagram at <code>outputPath</code>.</p>
 </section>
 
 
-    
+<section class="desc markdown">
+  <p>Completes when <a href="../../rohd/Simulator/reset.html">reset</a> is called after the <a href="../../rohd/Simulator-class.html">Simulator</a> has completed any
+actions it needs to perform to prepare for the next simulation.</p>
+</section>
+
+
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">void generateDiagram({String outputPath = &#39;diagram_fsm.md&#39;}) {
-  final figure = _MermaidStateDiagram(outputPath: outputPath)
-    ..addStartState(resetState.toString());
+  <pre class="language-dart"><code class="language-dart">static Future&lt;void&gt; get resetRequested =&gt; _resetCompleter.future;</code></pre>
+</section>
 
-  for (final state in _states) {
-    for (final entry in state.events.entries) {
-      figure.addTransitions(
-        state.identifier.toString(),
-        entry.value.toString(),
-        entry.key.name,
-      );
-    }
-
-    if (state.defaultNextState != state.identifier) {
-      figure.addTransitions(
-        state.identifier.toString(),
-        state.defaultNextState.toString(),
-        &#39;(default)&#39;,
-      );
-    }
-  }
-  figure.writeToFile();
-}</code></pre>
 </section>
 
 
@@ -121,12 +100,12 @@ If you are using vscode, you can download the mermaid extension.</p>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd</a></li>
-    <li><a href="../../rohd/FiniteStateMachine-class.html">FiniteStateMachine<span class="signature">&lt;<wbr><span class="type-parameter">StateIdentifier</span>&gt;</span></a></li>
-    <li class="self-crumb">generateDiagram method</li>
+    <li><a href="../../rohd/Simulator-class.html">Simulator</a></li>
+    <li class="self-crumb">resetRequested property</li>
 </ol>
 
 
-    <h5>FiniteStateMachine class</h5>
+    <h5>Simulator class</h5>
     <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
 
