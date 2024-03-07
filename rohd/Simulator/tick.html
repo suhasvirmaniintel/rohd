@@ -63,7 +63,7 @@
     <section class="multi-line-signature">
       
 
-<span class="returntype"><a href="https://api.dart.dev/stable/3.3.0/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.3.1/dart-async/Future-class.html">Future</a><span class="signature">&lt;<wbr><span class="type-parameter">void</span>&gt;</span></span>
 <span class="name ">tick</span>(<wbr>)
 
       
@@ -91,18 +91,21 @@ timestamp, and passes through all events and phases on the way.</p>
   }
 
   final nextTimeStamp = _pendingTimestamps.firstKey();
+
   if (nextTimeStamp == null) {
     return;
   }
 
   _currentTimestamp = nextTimeStamp;
 
+  final pendingList = _pendingTimestamps[nextTimeStamp]!;
+  _pendingTimestamps.remove(_currentTimestamp);
+
   await tickExecute(() async {
-    for (final func in _pendingTimestamps[nextTimeStamp]!) {
+    for (final func in pendingList) {
       await func();
     }
   });
-  _pendingTimestamps.remove(_currentTimestamp);
 }</code></pre>
 </section>
 
