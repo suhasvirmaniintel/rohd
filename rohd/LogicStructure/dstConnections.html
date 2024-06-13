@@ -68,10 +68,10 @@
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.4.2/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://api.dart.dev/stable/3.4.4/dart-core/override-constant.html">override</a></li>
     </ol>
   </div>
-      <span class="returntype"><a href="https://api.dart.dev/stable/3.4.2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../rohd/Logic-class.html">Logic</a></span>&gt;</span></span>
+      <span class="returntype"><a href="https://api.dart.dev/stable/3.4.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../rohd/Logic-class.html">Logic</a></span>&gt;</span></span>
       <span class="name ">dstConnections</span>
       <div class="features"><span class="feature">override</span></div>
 
@@ -79,15 +79,16 @@
 
     
 <section class="desc markdown">
-  <p>An <a href="https://api.dart.dev/stable/3.4.2/dart-core/Iterable-class.html">Iterable</a> of all <code>Logic</code>s that are being directly driven by <code>this</code>.</p>
+  <p>An <a href="https://api.dart.dev/stable/3.4.4/dart-core/Iterable-class.html">Iterable</a> of all <code>Logic</code>s that are being directly driven by <code>this</code>.</p>
 </section>
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
-Iterable&lt;Logic&gt; get dstConnections =&gt;
-    {for (final element in elements) ...element.dstConnections}.toList();</code></pre>
+Iterable&lt;Logic&gt; get dstConnections =&gt; {
+      for (final element in elements) ...element.dstConnections
+    }.toList(growable: false);</code></pre>
 </section>
 
   </section>

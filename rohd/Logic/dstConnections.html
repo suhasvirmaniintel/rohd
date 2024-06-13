@@ -62,21 +62,21 @@
 
       <section class="multi-line-signature">
         
-        <a href="https://api.dart.dev/stable/3.4.2/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../rohd/Logic-class.html">Logic</a></span>&gt;</span>
+        <a href="https://api.dart.dev/stable/3.4.4/dart-core/Iterable-class.html">Iterable</a><span class="signature">&lt;<wbr><span class="type-parameter"><a href="../../rohd/Logic-class.html">Logic</a></span>&gt;</span>
         <span class="name ">dstConnections</span>
         <div class="features"><span class="feature">late</span><span class="feature">final</span></div>
 
       </section>
       
 <section class="desc markdown">
-  <p>An <a href="https://api.dart.dev/stable/3.4.2/dart-core/Iterable-class.html">Iterable</a> of all <code>Logic</code>s that are being directly driven by <code>this</code>.</p>
+  <p>An <a href="https://api.dart.dev/stable/3.4.4/dart-core/Iterable-class.html">Iterable</a> of all <code>Logic</code>s that are being directly driven by <code>this</code>.</p>
 </section>
 
       
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">late final Iterable&lt;Logic&gt; dstConnections =
-    UnmodifiableListView(_dstConnections);</code></pre>
+    UnmodifiableSetView(_dstConnections);</code></pre>
 </section>
 
 
