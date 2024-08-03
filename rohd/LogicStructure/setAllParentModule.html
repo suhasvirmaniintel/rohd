@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="API docs for the generatesDefinition property from the InlineSystemVerilog mixin, for the Dart programming language.">
-  <title>generatesDefinition property - InlineSystemVerilog mixin - rohd library - Dart API</title>
+  <meta name="description" content="API docs for the setAllParentModule method from the LogicStructure class, for the Dart programming language.">
+  <title>setAllParentModule method - LogicStructure class - rohd library - Dart API</title>
 
 
   
@@ -30,10 +30,10 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd.dart</a></li>
-    <li><a href="../../rohd/InlineSystemVerilog-mixin.html">InlineSystemVerilog</a></li>
-    <li class="self-crumb">generatesDefinition property</li>
+    <li><a href="../../rohd/LogicStructure-class.html">LogicStructure</a></li>
+    <li class="self-crumb">setAllParentModule method</li>
   </ol>
-  <div class="self-name">generatesDefinition</div>
+  <div class="self-name">setAllParentModule</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -54,50 +54,54 @@
 <div
     id="dartdoc-main-content"
     class="main-content"
-    data-above-sidebar="rohd&#47;InlineSystemVerilog-mixin-sidebar.html"
+    data-above-sidebar="rohd&#47;LogicStructure-class-sidebar.html"
     data-below-sidebar="">
     <div>
-<h1><span class="kind-property">generatesDefinition</span> property 
+<h1><span class="kind-method">setAllParentModule</span> method 
 </h1></div>
-
-
-        
-  <section id="getter">
 
     <section class="multi-line-signature">
       
   <div>
     <ol class="annotation-list">
-        <li>@<a href="https://api.dart.dev/stable/3.4.4/dart-core/override-constant.html">override</a></li>
+        <li>@<a href="https://pub.dev/documentation/meta/1.15.0/meta/protected-constant.html">protected</a></li>
     </ol>
   </div>
-      <span class="returntype"><a href="https://api.dart.dev/stable/3.4.4/dart-core/bool-class.html">bool</a></span>
-      <span class="name ">generatesDefinition</span>
-      <div class="features"><span class="feature">override</span></div>
+
+<span class="returntype">void</span>
+<span class="name ">setAllParentModule</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="setAllParentModule-param-newParentModule"><span class="type-annotation"><a href="../../rohd/Module-class.html">Module</a>?</span> <span class="parameter-name">newParentModule</span></span></li>
+</ol>)
+
+      
 
     </section>
-
     
 <section class="desc markdown">
-  <p>Whether or not this <a href="../../rohd/Module-class.html">Module</a> generates a SystemVerilog definition.</p>
-<p>By default, this is automatically calculated by whether or not
-<a href="../../rohd/InlineSystemVerilog/definitionVerilog.html">definitionVerilog</a> provides a definition.</p>
+  <p>Performs a recursive call of setting <a href="../../rohd/LogicStructure/parentModule.html">parentModule</a> on all of <a href="../../rohd/LogicStructure/elements.html">elements</a>
+and their <a href="../../rohd/LogicStructure/elements.html">elements</a> for any sub-<a href="../../rohd/LogicStructure-class.html">LogicStructure</a>s.</p>
 </section>
+
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">@override
-bool get generatesDefinition =&gt; definitionVerilog(&#39;*PLACEHOLDER*&#39;) != null;</code></pre>
+  <pre class="language-dart"><code class="language-dart">@protected
+void setAllParentModule(Module? newParentModule) {
+  parentModule = newParentModule;
+  for (final element in elements) {
+    if (element is LogicStructure) {
+      element.setAllParentModule(newParentModule);
+    }
+    element.parentModule = newParentModule;
+  }
+}</code></pre>
 </section>
 
-  </section>
 
+  </div> <!-- /.main-content -->
 
-</div> <!-- /.main-content -->
-
-<div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-  <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
 <header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
@@ -107,16 +111,16 @@ bool get generatesDefinition =&gt; definitionVerilog(&#39;*PLACEHOLDER*&#39;) !=
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
     <li><a href="../../index.html">rohd</a></li>
     <li><a href="../../rohd/rohd-library.html">rohd</a></li>
-    <li><a href="../../rohd/InlineSystemVerilog-mixin.html">InlineSystemVerilog</a></li>
-    <li class="self-crumb">generatesDefinition property</li>
+    <li><a href="../../rohd/LogicStructure-class.html">LogicStructure</a></li>
+    <li class="self-crumb">setAllParentModule method</li>
 </ol>
 
 
-  <h5>InlineSystemVerilog mixin</h5>
-  <div id="dartdoc-sidebar-left-content"></div>
-</div><!--/.sidebar-offcanvas-->
+    <h5>LogicStructure class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
 
-<div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
 </div><!--/.sidebar-offcanvas-->
 
 </main>
