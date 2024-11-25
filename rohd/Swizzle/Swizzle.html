@@ -76,24 +76,45 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">Swizzle(List&lt;Logic&gt; signals, {super.name = &#39;swizzle&#39;}) {
-  var idx = 0;
+  <pre class="language-dart"><code class="language-dart">Swizzle(List&lt;Logic&gt; signals, {super.name = &#39;swizzle&#39;})
+    : _isNet = signals.any((e) =&gt; e.isNet) {
   var outputWidth = 0;
+
+  final inputCreator = _isNet ? addInOut : addInput;
+
+  var idx = 0;
   for (final signal in signals.reversed) {
     &#47;&#47;reverse so bit 0 is the last thing in the input list
     final inputName = Naming.unpreferredName(&#39;in${idx++}&#39;);
     _swizzleInputs.add(
-      addInput(inputName, signal, width: signal.width),
+      inputCreator(inputName, signal, width: signal.width),
     );
     outputWidth += signal.width;
   }
-  addOutput(_out, width: outputWidth);
 
-  _execute(); &#47;&#47; for initial values
-  for (final swizzleInput in _swizzleInputs) {
-    swizzleInput.glitch.listen((args) {
-      _execute();
-    });
+  if (_isNet) {
+    out = LogicNet(name: _out, width: outputWidth, naming: Naming.unnamed);
+    final internalOut = addInOut(_out, out, width: outputWidth);
+
+    var idx = 0;
+    for (final swizzleInput in _swizzleInputs) {
+      internalOut.quietlyMergeSubsetTo(swizzleInput as LogicNet, start: idx);
+      idx += swizzleInput.width;
+    }
+  } else {
+    out = addOutput(_out, width: outputWidth);
+
+    &#47;&#47; so that you can&#39;t assign the output of a (Logic) swizzle
+    out.makeUnassignable(
+        reason:
+            &#39;The output of a (non-LogicNet) Swizzle ($this) is read-only.&#39;);
+
+    _execute(); &#47;&#47; for initial values
+    for (final swizzleInput in _swizzleInputs) {
+      swizzleInput.glitch.listen((args) {
+        _execute();
+      });
+    }
   }
 }</code></pre>
 </section>

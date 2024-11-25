@@ -102,15 +102,14 @@ String instantiationVerilog(
   String instanceName,
   Map&lt;String, String&gt; ports,
 ) {
-  if (outputs.length != 1) {
-    throw Exception(
-        &#39;Inline verilog must have exactly one output, but saw $outputs.&#39;);
-  }
-  final output = ports[outputs.keys.first];
-  final inputPorts = Map.fromEntries(ports.entries.where((element) =&gt;
-      inputs.containsKey(element.key) || inOuts.containsKey(element.key)));
+  final result = ports[resultSignalName];
+  final inputPorts = Map.fromEntries(
+    ports.entries.where((element) =&gt;
+        inputs.containsKey(element.key) ||
+        (inOuts.containsKey(element.key) &amp;&amp; element.key != resultSignalName)),
+  );
   final inline = inlineVerilog(inputPorts);
-  return &#39;assign $output = $inline;  &#47;&#47; $instanceName&#39;;
+  return &#39;assign $result = $inline;  &#47;&#47; $instanceName&#39;;
 }</code></pre>
 </section>
 

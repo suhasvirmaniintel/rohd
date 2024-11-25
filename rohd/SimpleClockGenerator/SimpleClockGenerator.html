@@ -81,6 +81,9 @@ SystemVerilog representation.</p>
   <pre class="language-dart"><code class="language-dart">SimpleClockGenerator(this.clockPeriod, {super.name = &#39;clkgen&#39;}) {
   addOutput(&#39;clk&#39;);
 
+  clk.makeUnassignable(
+      reason: &#39;Generated clock from $this cannot be assigned&#39;);
+
   clk.glitch.listen((args) {
     Simulator.registerAction(Simulator.time + clockPeriod ~&#47; 2, () {
       clk.put(~clk.value);

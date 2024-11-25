@@ -81,8 +81,9 @@
 port's corresponding signal name.</p>
 <p>The <code>inputs</code> are a mapping from the <a href="../../rohd/Module-class.html">Module</a>'s port names to the names of
 the signals that are passed into those ports in the generated
-SystemVerilog. It will only contain <a href="../../rohd/Module/input.html">input</a>s and <a href="../../rohd/Module/inOut.html">inOut</a>s, as there
-should only be one <a href="../../rohd/Module/output.html">output</a> which is driven by the expression.</p>
+SystemVerilog. It will only contain <a href="../../rohd/Module/input.html">input</a>s and <a href="../../rohd/Module/inOut.html">inOut</a>s, as there should
+only be one <a href="../../rohd/Module/output.html">output</a> (named <a href="../../rohd/LShift/resultSignalName.html">resultSignalName</a>) which is driven by the
+expression.</p>
 <p>The output will be appropriately wrapped with parentheses to guarantee
 proper order of operations.</p>
 </section>

@@ -72,6 +72,9 @@
 <section class="desc markdown">
   <p>Constructs a <a href="../../rohd/Const-class.html">Const</a> with the specified value.</p>
 <p><code>val</code> should be processable by <a href="../../rohd/LogicValue/of.html">LogicValue.of</a>.</p>
+<p>If a <code>width</code> is provided, the <a href="../../rohd/Const-class.html">Const</a> will be that width.  If not, and
+<code>val</code> is a <a href="../../rohd/LogicValue-class.html">LogicValue</a>, the <a href="../../rohd/Const-class.html">Const</a> will be the width of <code>val</code>.
+Otherwise, the <a href="../../rohd/Const-class.html">Const</a> will be 1 bit wide.</p>
 </section>
 
 
@@ -81,12 +84,13 @@
   <pre class="language-dart"><code class="language-dart">Const(dynamic val, {int? width, bool fill = false})
     : super(
         name: &#39;const_$val&#39;,
-        width: val is LogicValue ? val.width : width ?? 1,
+        width: width ?? (val is LogicValue ? val.width : 1),
         &#47;&#47; we don&#39;t care about maintaining this node unless necessary
         naming: Naming.unnamed,
       ) {
   _wire.put(val, fill: fill, signalName: name);
-  _unassignable = true;
+
+  makeUnassignable(reason: &#39;`Const` signals are unassignable.&#39;);
 }</code></pre>
 </section>
 

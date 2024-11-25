@@ -83,15 +83,31 @@ thrown, otherwise.
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">ReplicationOp(Logic original, this._multiplier)
     : _inputName = Naming.unpreferredName(original.name),
-      _outputName = Naming.unpreferredName(&#39;replicated_${original.name}&#39;) {
+      _outputName = Naming.unpreferredName(&#39;replicated_${original.name}&#39;),
+      _isNet = original.isNet {
   final newWidth = original.width * _multiplier;
   if (newWidth &lt; 1) {
     throw InvalidMultiplierException(newWidth);
   }
 
-  addInput(_inputName, original, width: original.width);
-  addOutput(_outputName, width: original.width * _multiplier);
-  _setup();
+  if (_isNet) {
+    original = addInOut(_inputName, original, width: original.width);
+
+    replicated =
+        LogicNet(name: _outputName, width: newWidth, naming: Naming.unnamed);
+    final internalOut = addInOut(_outputName, replicated, width: newWidth);
+
+    for (var i = 0; i &lt; _multiplier; i++) {
+      internalOut.quietlyMergeSubsetTo(original as LogicNet,
+          start: i * original.width);
+    }
+  } else {
+    addInput(_inputName, original, width: original.width);
+    replicated = addOutput(_outputName, width: original.width * _multiplier)
+      ..makeUnassignable(
+          reason: &#39;Output of a gate $this cannot be assigned.&#39;);
+    _setup();
+  }
 }</code></pre>
 </section>
 

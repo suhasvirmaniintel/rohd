@@ -98,12 +98,17 @@ named <code>name</code>.</p>
   _checkForSafePortName(name);
 
   &#47;&#47; make sure we register all the _inOutDrivers properly
-  final xElems = [source];
-  for (var i = 0; i &lt; xElems.length; i++) {
-    final xi = xElems[i];
-    _inOutDrivers.add(xi);
-    if (xi is LogicArray) {
-      xElems.addAll(xi.elements);
+  final sourceElems = TraverseableCollection&lt;Logic&gt;()..add(source);
+  for (var i = 0; i &lt; sourceElems.length; i++) {
+    final sei = sourceElems[i];
+    _inOutDrivers.add(sei);
+
+    if (sei.isArrayMember) {
+      sourceElems.add(sei.parentStructure!);
+    }
+
+    if (sei is LogicArray) {
+      sourceElems.addAll(sei.elements);
     }
   }
 
@@ -117,6 +122,10 @@ named <code>name</code>.</p>
     ..gets(source)
     &#47;&#47; ignore: invalid_use_of_protected_member
     ..setAllParentModule(this);
+
+  &#47;&#47; there may be packed arrays created by the `gets` above, so this makes
+  &#47;&#47; sure we catch all of those.
+  _inOutDrivers.addAll(inOutArr.srcConnections);
 
   _inOuts[name] = inOutArr;
 
